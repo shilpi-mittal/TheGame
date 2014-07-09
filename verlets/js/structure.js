@@ -6,10 +6,10 @@ var structure_factory = (function(){
 
 	return function(properties){
 
-		var type = properties.type || 'defaultParticle';
+		var type = properties.type || 'defaultListOfParticle';
 		var withChanges = properties.withChanges || {};
 		
-		var particleProductType = particleProducts[type] || particleProducts.defaultParticle;
+		var particleProductType = particleProducts[type] || particleProducts.defaultListOfParticle;
 		var finalProductType = jQuery.extend({},particleProductType,withChanges);
 		
 		var currentPosition = finalProductType.initial_position;

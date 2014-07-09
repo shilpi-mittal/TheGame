@@ -21,14 +21,14 @@ var create_new_stick = (function(){
 		var strategies = {
 			none_locked : function(offset){
 				offset = offset.scale(0.5);
-				particleA.subtract(offset);
-				particleB.add(offset);
+				this.particleA.subtract(offset);
+				this.particleB.add(offset);
 			},
 			particleA_locked : function(offset){
-				particleB.add(offset);
+				this.particleB.add(offset);
 			},
 			particleB_locked : function(offset){
-				particleA.subtract(offset);
+				this.particleA.subtract(offset);
 			},
 			both_locked : function(offset){
 
@@ -42,7 +42,7 @@ var create_new_stick = (function(){
 
 	var throw_exception = function(msg){
 		throw (msg || "Exception in verletStick");
-	}
+	};
 
 	return function(properties){
 
@@ -60,7 +60,7 @@ var create_new_stick = (function(){
 
 		var currentStrategy = constraint_strategy[properties.lockingStrategy] || stickProducts.defaultStick.lockingStrategy;
 
-		var offset_to_maitain_distance = function(){
+		var offset_to_maintain_distance = function(){
 			var deltaBetweenTwoParticles = particleA.getPosition().newSubtract(particleB.getPosition());
 			var lengthOfDelta = deltaBetweenTwoParticles.length();
 			var differencesOfLength = length - lengthOfDelta;
@@ -74,7 +74,7 @@ var create_new_stick = (function(){
 
 		return {
 			constraint : function(){
-				constraint_strategy[currentStrategy](offset_to_maitain_distance());
+				constraint_strategy[currentStrategy](offset_to_maintain_distance());
 			},
 			render : function(){
 				finalProductType.render();
@@ -92,8 +92,5 @@ var create_new_stick = (function(){
 				length = newLength;
 			}
 		};
-
-
-	};	
-
+	};
 })();

@@ -1,7 +1,7 @@
 var particle_factory = (function(){
 
 	var particleProducts = {
-		defaultParticle : {
+		defaultListOfParticle : {
 				initial_position : create_new_vector(),
 				lastPosition : create_new_vector(),
 				initialVelocity : create_new_vector(),
@@ -15,10 +15,10 @@ var particle_factory = (function(){
 	return function(properties){
 
 		var properties = properties || {};
-		var type = properties.type || 'defaultParticle';
+		var type = properties.type || 'defaultListOfParticle';
 		var withChanges = properties.withChanges || {};
 		
-		var particleProductType = particleProducts[type] || particleProducts.defaultParticle;
+		var particleProductType = particleProducts[type] || particleProducts.defaultListOfParticle;
 		var finalProductType = jQuery.extend({},particleProductType,withChanges);
 		
 		var currentPosition = finalProductType.initial_position;
@@ -48,11 +48,11 @@ var particle_factory = (function(){
 
 		var add = function(delta){
 			currentPosition.add(delta);
-		}
+		};
 
 		var subtract = function(delta){
 			currentPosition.subtract(delta);
-		}
+		};
 
 		return {
 			render : finalProductType.render,
@@ -64,9 +64,6 @@ var particle_factory = (function(){
 			update : update,
 			adjustmentRatio : function(){
 				return 0.5 ;
-			},
-			distance : function(anotherParticle){
-				return this.getPosition().distance(anotherParticle.getPosition());
 			}
 		};
 	};

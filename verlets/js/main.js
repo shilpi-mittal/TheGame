@@ -11,7 +11,7 @@ $('document').ready(function(){
 	var mainContext = mainCanvas.getContext('2d');
 	
 	var particle = particle_factory({
-		type : 'defaultParticle',
+		type : 'defaultListOfParticle',
 		withChanges : {
 			initial_position : canvasDimensions.newScale(0.5),
 			render : circle_point_drawable_factory({
@@ -25,13 +25,13 @@ $('document').ready(function(){
 		}
 	});
 
- 	var several_particles = particles_factory({
+ 	var several_particles = listOfParticles_factory({
  		type : 'defaultBlueParticles',
  		withChanges : {
  			numberOfParticles : 20,
  			get_particle_properties : function(index){
  				return {
- 					type : 'defaultParticle',
+ 					type : 'defaultListOfParticle',
  					withChanges : {
  						initial_position : create_new_vector({
  							x : index*10 + 100,

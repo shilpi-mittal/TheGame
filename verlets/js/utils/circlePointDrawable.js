@@ -31,7 +31,7 @@ var circle_point_drawable_factory = (function(){
 				getRadius : function(){
 					return 2;
 				}
-			}
+			};
 			return jQuery.extend({},defaults,changes);
 		})()
 	};
@@ -44,7 +44,7 @@ var circle_point_drawable_factory = (function(){
 		var archEnd = properties.getArchEnd();
 		var isCounterClockwise = properties.getIsCounterClockwise();
 		context.arc(x,y,radius,archStart,archEnd,false);
-	}
+	};
 
 	return function(properties){
 		var properties = properties || point_drawable_products.defaultDrawable;
@@ -64,5 +64,4 @@ var circle_point_drawable_factory = (function(){
 			context.stroke();
 		}
 	}
-
 })();

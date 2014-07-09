@@ -1,11 +1,11 @@
-var particles_factory = (function(){
+var listOfParticles_factory = (function(){
 
-	var particlesProducts = {
-		defaultParticles : {
+	var listOfParticlesProducts = {
+		defaultListOfParticles : {
 			numberOfParticles : 100,
 			get_particle_properties : function(index){
 				return {
-					type : 'defaultParticle',
+					type : 'defaultListOfParticle',
 					withChanges : {}
 				}
 			}
@@ -14,28 +14,28 @@ var particles_factory = (function(){
 
 	return function(properties){
 		
-		var properties = properties || particlesProducts.defaultParticles;
+		var properties = properties || listOfParticlesProducts.defaultListOfParticles;
 
-		var particles = [];
+		var listOfParticles = [];
 
-		var type = properties.type || 'defaultParticles';
+		var type = properties.type || 'defaultListOfParticles';
 		var withChanges = properties.withChanges || {};
 
-		var particlesProductType = particlesProducts[type] || particlesProducts.defaultParticles;
+		var particlesProductType = listOfParticlesProducts[type] || listOfParticlesProducts.defaultListOfParticles;
 		var finalProperties = jQuery.extend({},particlesProductType,withChanges);
 
 		range(finalProperties.numberOfParticles).map(function(index){
-			particles.push(particle_factory(finalProperties.get_particle_properties(index)));
+			listOfParticles.push(particle_factory(finalProperties.get_particle_properties(index)));
 		});
 
 		var render_function = function(context){
-			particles.map(function(elem,index){
+			listOfParticles.map(function(elem,index){
 				render_specific_function(index,context);
 			});
 		}
 
 		var render_specific_function = function(index,context){
-			particles[index].render(context);
+			listOfParticles[index].render(context);
 		}	
 		
 		return {
