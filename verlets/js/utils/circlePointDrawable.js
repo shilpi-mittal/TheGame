@@ -11,10 +11,10 @@ var circle_point_drawable_factory = (function(){
 			return false;
 		},
 		getFillStyle : function(){
-			return 'red';
+			return 'green';
 		},
 		getLineWidth : function(){
-			return 1;
+			return 0.5;
 		},
 		getStrokeStyle : function(){
 			return 'black'
@@ -26,14 +26,25 @@ var circle_point_drawable_factory = (function(){
 
 	var point_drawable_products = {
 		defaultDrawable : defaults,
-		smallRedCircle : (function(){
+		smallGreenCircle : (function(){
 			var changes = {
 				getRadius : function(){
-					return 2;
+					return 2.5;
 				}
 			};
 			return jQuery.extend({},defaults,changes);
-		})()
+		})(),
+    smallRedCircle : (function(){
+      var changes = {
+        getRadius : function(){
+          return 2.5;
+        },
+        getFillStyle : function(){
+          return "red";
+        }
+      };
+      return jQuery.extend({},defaults,changes);
+    })()
 	};
 
 	var drawArc = function(position, properties,context){

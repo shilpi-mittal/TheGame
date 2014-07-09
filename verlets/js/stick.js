@@ -22,6 +22,8 @@ var stick_factory = (function(){
 
     var particle1Position = finalProductType.particle1.getPosition();
     var particle2Position = finalProductType.particle2.getPosition();
+    var particle1 = finalProductType.particle1;
+    var particle2 = finalProductType.particle2;
     var strategy = finalProductType.strategy;
 
     var getParticle1Position = function(){
@@ -39,6 +41,17 @@ var stick_factory = (function(){
     };
 
     var update = function(){
+      if(particle1.getParticleType() == "locked") {
+        if(particle2.getParticleType() == "locked") {
+          strategy = "bothLocked";
+        }
+        else {
+          strategy = "particle1Locked";
+        }
+      }
+      if(particle2.getParticleType() == "locked") {
+        strategy = "particle2Locked";
+      }
       applyStickConstraint(this, strategy)();
     };
 

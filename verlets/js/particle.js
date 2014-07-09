@@ -5,6 +5,7 @@ var particle_factory = (function(){
 				initial_position : create_new_vector(),
 				lastPosition : create_new_vector(),
 				initialVelocity : create_new_vector(),
+        particleType : "normal",
 				render : circle_point_drawable_factory({
 					type : 'defaultDrawable',
 					withChanges : {}
@@ -12,7 +13,7 @@ var particle_factory = (function(){
 		}
 	};
 
-	return function(properties){
+	return function(properties) {
 
 		var properties = properties || {};
 		var type = properties.type || 'defaultListOfParticle';
@@ -23,7 +24,8 @@ var particle_factory = (function(){
 		
 		var currentPosition = finalProductType.initial_position;
 		var lastPosition = jQuery.extend(true,{},currentPosition);
-		lastPosition = lastPosition.newAdd(finalProductType.initialVelocity); 
+		lastPosition = lastPosition.newAdd(finalProductType.initialVelocity);
+    var particleType = finalProductType.particleType;
 
 		var getPosition = function(){
 			return create_new_vector({
@@ -54,6 +56,14 @@ var particle_factory = (function(){
 			currentPosition.subtract(delta);
 		};
 
+    var getParticleType = function() {
+      return particleType;
+    };
+
+    var setParticleType = function(type) {
+      particleType = type;
+    };
+
 		return {
 			render : finalProductType.render,
 			getPosition : getPosition,
@@ -62,6 +72,8 @@ var particle_factory = (function(){
 			add : add,
 			subtract : subtract,
 			update : update,
+      getParticleType : getParticleType,
+      setParticleType : setParticleType,
 			adjustmentRatio : function(){
 				return 0.5 ;
 			}

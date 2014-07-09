@@ -15,7 +15,7 @@ $('document').ready(function(){
     withChanges : {
       initial_position : canvasDimensions.newScale(0.5),
       render : circle_point_drawable_factory({
-        type : 'smallRedCircle',
+        type : 'smallGreenCircle',
         withChanges : {}
       })
     }
@@ -26,7 +26,7 @@ $('document').ready(function(){
     withChanges : {
       initial_position : (canvasDimensions.newScale(0.5)).add(create_new_vector(3,4)) ,
       render : circle_point_drawable_factory({
-        type : 'smallRedCircle',
+        type : 'smallGreenCircle',
         withChanges : {}
       })
     }
@@ -48,6 +48,8 @@ $('document').ready(function(){
     x : 1,
     y : 0
   }));
+
+  applyLockConstraint(particle1);
 
   particle2.changePosition(particle2.getPosition().newAdd({
     x : 1,

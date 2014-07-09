@@ -15,7 +15,7 @@ $('document').ready(function(){
 		withChanges : {
 			initial_position : canvasDimensions.newScale(0.5),
 			render : circle_point_drawable_factory({
-				type : 'smallRedCircle'
+				type : 'smallGreenCircle'
 			})
 		}
 	});
