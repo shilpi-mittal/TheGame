@@ -4,6 +4,7 @@ var stick_factory = (function(){
     defaultListOfParticle : {
       particle1 : null,
       particle2 : null,
+      length : null,
       strategy : 'noneLocked',
       render : lineDrawableFactory({
         type : 'defaultDrawable',
@@ -49,7 +50,7 @@ var stick_factory = (function(){
           strategy = "particle1Locked";
         }
       }
-      if(particle2.getParticleType() == "locked") {
+      else if(particle2.getParticleType() == "locked") {
         strategy = "particle2Locked";
       }
       applyStickConstraint(this, strategy)();
@@ -63,6 +64,8 @@ var stick_factory = (function(){
       render : finalProductType.render,
       particle1 : finalProductType.particle1,
       particle2 : finalProductType.particle2,
+      length : finalProductType.length,
+      strategy : finalProductType.strategy,
       getParticle1Position : getParticle1Position,
       getParticle2Position : getParticle2Position,
       changeStrategy : changeStrategy,

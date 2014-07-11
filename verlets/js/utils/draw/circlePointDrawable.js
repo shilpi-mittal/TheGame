@@ -29,7 +29,7 @@ var circle_point_drawable_factory = (function(){
 		smallGreenCircle : (function(){
 			var changes = {
 				getRadius : function(){
-					return 2.5;
+					return 2;
 				}
 			};
 			return jQuery.extend({},defaults,changes);
@@ -37,7 +37,7 @@ var circle_point_drawable_factory = (function(){
     smallRedCircle : (function(){
       var changes = {
         getRadius : function(){
-          return 2.5;
+          return 2;
         },
         getFillStyle : function(){
           return "red";
