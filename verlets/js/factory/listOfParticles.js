@@ -34,12 +34,25 @@ var listOfParticles_factory = (function(){
 			});
 		};
 
-		var render_specific_function = function(index,context){
+    var update = function() {
+      listOfParticles.map(function(elem,index) {
+        listOfParticles[index].update();
+      });
+    };
+
+    var addForce = function(force){
+      listOfParticles.map(function(elem,index) {
+        listOfParticles[index].add(force);
+      });
+    };
+
+
+    var render_specific_function = function(index,context){
 			listOfParticles[index].render(context);
 		};
 
     var getListSize = function() {
-      return listOfParticles.size;
+      return listOfParticles.length;
     };
 
     var getParticleAtIndex = function(index) {
@@ -48,6 +61,8 @@ var listOfParticles_factory = (function(){
 		
 		return {
 			render : render_function,
+      update : update,
+      addForce : addForce,
 			renderSpecific : render_specific_function,
       getListSize : getListSize,
       getParticleAtIndex : getParticleAtIndex

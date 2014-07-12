@@ -10,8 +10,7 @@ function initialFinal() {
   var finalXFactor = 39 / 40;
   var finalYFactor = 1 / 2;
 
-  var initialRectColor = "yellow";
-  var finalRectColor = "blue";
+  var rectColor = "#FFDB58";
 
   var rectWidth, rectHeight, trophyWidth, trophyHeight;
   var animate;
@@ -37,11 +36,13 @@ function initialFinal() {
     var finalX = width * finalXFactor;
     var finalY = height * finalYFactor;
 
-//  context.color = initialRectColor;
+    context.fillStyle = rectColor;
+    context.fill();
     context.fillRect(initialX, initialY - rectHeight / 2, rectWidth, rectHeight);
 
-    //context.color = finalRectColor;
+    context.fill();
     context.fillRect(finalX - rectWidth, finalY - rectHeight / 2, rectWidth, rectHeight);
+
     context.drawImage(trophy, finalX - rectWidth / 2 - trophyWidth / 2, finalY - rectHeight / 2 - trophyHeight, trophyWidth, trophyHeight);
 
     animate = setTimeout(setInitialFinalPoint, 20);
