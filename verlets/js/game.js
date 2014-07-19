@@ -11,7 +11,7 @@ $('document').ready(function(){
 	var mainContext = mainCanvas.getContext('2d');
 
 	var particle = particle_factory({
-		type : 'defaultListOfParticle',
+		type : 'defaultListOfStick',
 		withChanges : {
 			initial_position : canvasDimensions.newScale(0.5),
 			render : circle_point_drawable_factory({
@@ -32,7 +32,7 @@ $('document').ready(function(){
 			y : 1
 		}));
 
-		particle.update();
+		particle.applyStickConstraint();
 		particle.render(mainContext);
 		requestAnimationFrame(gameLoop);
 	})();

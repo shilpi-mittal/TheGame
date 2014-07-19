@@ -11,7 +11,7 @@ $('document').ready(function(){
 	var mainContext = mainCanvas.getContext('2d');
 	
 	var particle = particle_factory({
-		type : 'defaultListOfParticle',
+		type : 'defaultListOfStick',
 		withChanges : {
 			initial_position : canvasDimensions.newScale(0.5),
 			render : circle_point_drawable_factory({
@@ -31,7 +31,7 @@ $('document').ready(function(){
  			numberOfParticles : 20,
  			get_particle_properties : function(index){
  				return {
- 					type : 'defaultListOfParticle',
+ 					type : 'defaultListOfStick',
  					withChanges : {
  						initial_position : create_new_vector({
  							x : index*10 + 100,
@@ -43,7 +43,7 @@ $('document').ready(function(){
  								getRadius : function(){
  									return 5 * index;
  								},
- 								getFillStyle : function(){
+ 								setFillStyle : function(){
  									var red = index * 10,
  										green = index * 20,
  										blue = index * 5;

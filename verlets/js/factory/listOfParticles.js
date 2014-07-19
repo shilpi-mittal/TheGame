@@ -1,73 +1,80 @@
-var listOfParticles_factory = (function(){
+var listOfParticles_factory = (function () {
 
-	var listOfParticlesProducts = {
-		defaultListOfParticles : {
-			numberOfParticles : 100,
-			get_particle_properties : function(index){
-				return {
-					type : 'defaultListOfParticle',
-					withChanges : {}
-				}
-			}
-		}
-	};
+  var listOfParticlesProducts = {
+    defaultListOfParticles: {
+      numberOfParticles: 100,
+      get_particle_properties: function (index) {
+        return {
+          type: 'defaultListOfParticle',
+          withChanges: {}
+        }
+      }
+    }
+  };
 
-	return function(properties){
-		
-		var properties = properties || listOfParticlesProducts.defaultListOfParticles;
+  return function (properties) {
 
-		var listOfParticles = [];
+    var properties = properties || listOfParticlesProducts.defaultListOfParticles;
 
-		var type = properties.type || 'defaultListOfParticles';
-		var withChanges = properties.withChanges || {};
+    var listOfParticles = [];
 
-		var particlesProductType = listOfParticlesProducts[type] || listOfParticlesProducts.defaultListOfParticles;
-		var finalProperties = jQuery.extend({},particlesProductType,withChanges);
+    var type = properties.type || 'defaultListOfParticles';
+    var withChanges = properties.withChanges || {};
 
-		range(finalProperties.numberOfParticles).map(function(index){
-			listOfParticles.push(particle_factory(finalProperties.get_particle_properties(index)));
-		});
+    var particlesProductType = listOfParticlesProducts[type] || listOfParticlesProducts.defaultListOfParticles;
+    var finalProperties = jQuery.extend({}, particlesProductType, withChanges);
 
-		var render_function = function(context){
-			listOfParticles.map(function(elem,index){
-				render_specific_function(index,context);
-			});
-		};
+    range(finalProperties.numberOfParticles).map(function (index) {
+      listOfParticles.push(particle_factory(finalProperties.get_particle_properties(index)));
+    });
 
-    var update = function() {
-      listOfParticles.map(function(elem,index) {
-        listOfParticles[index].update();
+    var render_function = function (context) {
+      listOfParticles.map(function (elem, index) {
+        render_specific_function(index, context);
       });
     };
 
-    var addForce = function(force){
-      listOfParticles.map(function(elem,index) {
+    var update = function () {
+      listOfParticles.map(function (elem, index) {
+        listOfParticles[index].applyStickConstraint();
+      });
+    };
+
+    var addForce = function (force) {
+      listOfParticles.map(function (elem, index) {
         listOfParticles[index].add(force);
       });
     };
 
 
-    var render_specific_function = function(index,context){
-			listOfParticles[index].render(context);
-		};
+    var render_specific_function = function (index, context) {
+      listOfParticles[index].render(context);
+    };
 
-    var getListSize = function() {
+    var getListSize = function () {
       return listOfParticles.length;
     };
 
-    var getParticleAtIndex = function(index) {
+    var getParticleAtIndex = function (index) {
       return listOfParticles[index];
     };
-		
-		return {
-			render : render_function,
-      update : update,
-      addForce : addForce,
-			renderSpecific : render_specific_function,
-      getListSize : getListSize,
-      getParticleAtIndex : getParticleAtIndex
-		};
 
-	};
+    var applyStayOutRectangleConstraint = function (rectangle) {
+      listOfParticles.map(function (elem, index) {
+        listOfParticles[index].applyStayOutRectangleConstraint(rectangle);
+      });
+    };
+
+    return {
+      render: render_function,
+      applyStickConstraint: update,
+      addForce: addForce,
+      renderSpecific: render_specific_function,
+      getListSize: getListSize,
+      applyStayOutRectangleConstraint : applyStayOutRectangleConstraint,
+      getParticleAtIndex: getParticleAtIndex
+    };
+
+  };
 })();
 

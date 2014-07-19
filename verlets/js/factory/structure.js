@@ -6,10 +6,10 @@ var structure_factory = (function(){
 
 	return function(properties){
 
-		var type = properties.type || 'defaultListOfParticle';
+		var type = properties.type || 'defaultListOfStick';
 		var withChanges = properties.withChanges || {};
 		
-		var particleProductType = particleProducts[type] || particleProducts.defaultListOfParticle;
+		var particleProductType = particleProducts[type] || particleProducts.defaultListOfStick;
 		var finalProductType = jQuery.extend({},particleProductType,withChanges);
 		
 		var currentPosition = finalProductType.initial_position;
@@ -42,7 +42,7 @@ var structure_factory = (function(){
 			getPosition : getPosition,
 			getVelocity : getVelocity,
 			changePosition : changePosition,
-			update : update
+			applyStickConstraint : update
 		};
 	};
 })();

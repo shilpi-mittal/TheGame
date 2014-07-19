@@ -11,7 +11,7 @@ $('document').ready(function () {
   var mainContext = mainCanvas.getContext('2d');
 
   var particle1 = particle_factory({
-    type: 'defaultListOfParticle',
+    type: 'defaultListOfStick',
     withChanges: {
       initial_position: canvasDimensions.newScale(0.5),
       render: circle_point_drawable_factory({
@@ -22,7 +22,7 @@ $('document').ready(function () {
   });
 
   var particle2 = particle_factory({
-    type: 'defaultListOfParticle',
+    type: 'defaultListOfStick',
     withChanges: {
       initial_position: (canvasDimensions.newScale(0.5)).newAdd(create_new_vector({x: 30, y: 40})),
       render: circle_point_drawable_factory({
@@ -33,7 +33,7 @@ $('document').ready(function () {
   });
 
   var stick = stick_factory({
-    type: 'defaultListOfParticle',
+    type: 'defaultListOfStick',
     withChanges: {
       particle1: particle1,
       particle2: particle2,
@@ -53,15 +53,15 @@ $('document').ready(function () {
   }));
 
   (function gameLoop() {
-    for(var i = 0; i<10; i++) {
-    particle2.changePosition(particle2.getPosition().newAdd({
-      x: 0,
-      y: 6
-    }));
+    for (var i = 0; i < 10; i++) {
+      particle2.changePosition(particle2.getPosition().newAdd({
+        x: 0,
+        y: 6
+      }));
 
-    particle1.update();
-    particle2.update();
-    stick.update();
+      particle1.applyStickConstraint();
+      particle2.applyStickConstraint();
+      stick.applyStickConstraint();
     }
 
     particle1.render(mainContext);

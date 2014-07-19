@@ -10,13 +10,13 @@ var circle_point_drawable_factory = (function(){
 		getIsCounterClockwise : function(){
 			return false;
 		},
-		getFillStyle : function(){
+		setFillStyle : function(){
 			return 'green';
 		},
-		getLineWidth : function(){
+		setLineWidth : function(){
 			return 0.5;
 		},
-		getStrokeStyle : function(){
+		setStrokeStyle : function(){
 			return 'black'
 		},
 		getArchEnd : function(){
@@ -39,7 +39,7 @@ var circle_point_drawable_factory = (function(){
         getRadius : function(){
           return 2;
         },
-        getFillStyle : function(){
+        setFillStyle : function(){
           return "red";
         }
       };
@@ -68,10 +68,10 @@ var circle_point_drawable_factory = (function(){
 		return function(context){
 			context.beginPath();
 			drawArc(this.getPosition(), finalProductType, context);
-			context.fillStyle = finalProductType.getFillStyle();
+			context.fillStyle = finalProductType.setFillStyle();
 			context.fill();
-			context.lineWidth = finalProductType.getLineWidth();
-			context.strokeStyle = finalProductType.getStrokeStyle();
+			context.lineWidth = finalProductType.setLineWidth();
+			context.strokeStyle = finalProductType.setStrokeStyle();
 			context.stroke();
 		}
 	}

@@ -1,7 +1,7 @@
 var stick_factory = (function(){
 
   var stickProducts = {
-    defaultListOfParticle : {
+    defaultListOfStick : {
       particle1 : null,
       particle2 : null,
       length : null,
@@ -15,10 +15,10 @@ var stick_factory = (function(){
 
   return function(properties){
     var properties = properties || {};
-    var type = properties.type || 'defaultListOfParticle';
+    var type = properties.type || 'defaultListOfStick';
     var withChanges = properties.withChanges || {};
 
-    var stickProductType = stickProducts[type] || stickProducts.defaultListOfParticle;
+    var stickProductType = stickProducts[type] || stickProducts.defaultListOfStick;
     var finalProductType = jQuery.extend({},stickProductType,withChanges);
 
     var particle1Position = finalProductType.particle1.getPosition();
@@ -41,17 +41,24 @@ var stick_factory = (function(){
       })
     };
 
-    var update = function(){
-      if(particle1.getParticleType() == "locked") {
-        if(particle2.getParticleType() == "locked") {
+    var addStickConstraint = function(){
+      if(particle1.getParticleType() == "locked" || particle1.getParticleType() == "tempLocked") {
+        if(particle2.getParticleType() == "locked" || particle2.getParticleType() == "tempLocked") {
           strategy = "bothLocked";
         }
         else {
           strategy = "particle1Locked";
         }
       }
-      else if(particle2.getParticleType() == "locked") {
+      else if(particle2.getParticleType() == "locked" || particle2.getParticleType() == "tempLocked") {
         strategy = "particle2Locked";
+      }
+
+      if(particle1.getParticleType() == "tempLocked") {
+        particle1.setParticleType("normal");
+      }
+      if(particle2.getParticleType() == "tempLocked") {
+        particle2.setParticleType("normal");
       }
       applyStickConstraint(this, strategy)();
     };
@@ -69,7 +76,7 @@ var stick_factory = (function(){
       getParticle1Position : getParticle1Position,
       getParticle2Position : getParticle2Position,
       changeStrategy : changeStrategy,
-      update : update,
+      applyStickConstraint : addStickConstraint,
       adjustmentRatio : function(){
         return 0.5 ;
       }

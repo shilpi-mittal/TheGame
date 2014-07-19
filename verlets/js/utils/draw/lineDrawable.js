@@ -1,10 +1,10 @@
 var lineDrawableFactory = (function(){
 	
 	var defaults = {
-		getLineWidth : function(){
+		setLineWidth : function(){
 			return 1;
 		},
-		getStrokeStyle : function(){
+		setStrokeStyle : function(){
 			return 'black'
 		}
 	};
@@ -36,8 +36,8 @@ var lineDrawableFactory = (function(){
 		return function(context){
 			context.beginPath();
 			drawLine(this.particle1.getPosition(),this.particle2.getPosition(),finalProductType, context);
-			context.lineWidth = finalProductType.getLineWidth();
-			context.strokeStyle = finalProductType.getStrokeStyle();
+			context.lineWidth = finalProductType.setLineWidth();
+			context.strokeStyle = finalProductType.setStrokeStyle();
 			context.stroke();
 		}
 	}

@@ -8,10 +8,10 @@ $('document').ready(function () {
   mainCanvas.width = window.innerWidth;
 
   var numberOfParticlesInRope = 50;
-  var initialPositionXOfFirstParticle = mainCanvas.width/40;
-  var initialPositionYOfFirstParticle = mainCanvas.height/40;
-  var finalPositionXOfFirstParticle = mainCanvas.width*(39/40);
-  var stickLength = (mainCanvas.width-(mainCanvas.width - finalPositionXOfFirstParticle))/numberOfParticlesInRope;
+  var initialPositionXOfFirstParticle = mainCanvas.width / 40;
+  var initialPositionYOfFirstParticle = mainCanvas.height / 40;
+  var finalPositionXOfFirstParticle = mainCanvas.width * (39 / 40);
+  var stickLength = (mainCanvas.width - (mainCanvas.width - finalPositionXOfFirstParticle)) / numberOfParticlesInRope;
 
   var particleList = listOfParticles_factory({
     type: 'defaultGreenParticles',
@@ -19,17 +19,18 @@ $('document').ready(function () {
       numberOfParticles: numberOfParticlesInRope,
       get_particle_properties: function (index) {
         return {
-          type: 'defaultListOfParticle',
+          type: 'defaultListOfParticles',
           withChanges: {
             initial_position: create_new_vector({
               x: index * stickLength + initialPositionXOfFirstParticle,
               y: initialPositionYOfFirstParticle
             }),
+            particleType : "normal",
             render: circle_point_drawable_factory({
-              type: 'smallGreenCircle' ,
+              type: 'smallGreenCircle',
               withChanges: {
-                getRadius : function(){
-                  return stickLength/8;
+                getRadius: function () {
+                  return stickLength / 8;
                 }
               }
             })
@@ -42,7 +43,7 @@ $('document').ready(function () {
   var stickList = listOfSticks_factory({
     type: 'defaultListOfStick',
     withChanges: {
-      numberOfSticks: numberOfParticlesInRope-1,
+      numberOfSticks: numberOfParticlesInRope - 1,
       getStickProperties: function (index) {
         return {
           type: 'defaultListOfStick',
@@ -53,8 +54,8 @@ $('document').ready(function () {
             render: lineDrawableFactory({
               type: 'defaultDrawable',
               withChanges: {
-                getLineWidth : function(){
-                  return stickLength/20;
+                setLineWidth: function () {
+                  return stickLength / 20;
                 }
               }
             })
@@ -64,11 +65,32 @@ $('document').ready(function () {
     }
   });
 
+  var rectangle = rectangle_factory({
+    type: 'smallGreenRectangle',
+    withChanges: {
+      startPoint: create_new_vector({x: mainCanvas.width / 2, y: mainCanvas.height / 2}),
+      offset: create_new_vector({x: mainCanvas.width / 12, y: mainCanvas.height / 15}),
+      render: rectangle_drawable_factory({
+        type: 'smallGreenRectangle',
+        withChanges: {
+          getOffset: function () {
+            return create_new_vector({x: mainCanvas.width / 12, y: mainCanvas.height / 15});
+          },
+          getStartPoint: function () {
+            return create_new_vector({x: mainCanvas.width / 2, y: mainCanvas.height / 2});
+          }
+        }
+      })
+    }
+  });
+
 
   (function gameLoop() {
     mainContext.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-    particleList.addForce(create_new_vector({x : 0, y: mainCanvas.height/50}));
-    stickList.update();
+    rectangle.render(mainContext);
+    particleList.addForce(create_new_vector({x: 0, y: mainCanvas.height / 50}));
+    particleList.applyStayOutRectangleConstraint(rectangle);
+    stickList.applyStickConstraint();
     particleList.render(mainContext);
     stickList.render(mainContext);
 

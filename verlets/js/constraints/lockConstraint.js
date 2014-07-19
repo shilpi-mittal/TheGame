@@ -1,5 +1,5 @@
 var applyLockConstraint = function (particle) {
-  particle.update = function() {
+  particle.applyStickConstraint = function() {
     particle.changePosition(particle.getPosition());
   };
 
